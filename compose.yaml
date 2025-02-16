@@ -1,0 +1,10 @@
+services:
+  file-reader:
+    build: .
+    ports:
+      - '3000:3000'
+    networks:
+      - file-store_people
+networks:
+  file-store_people:
+    external: true
