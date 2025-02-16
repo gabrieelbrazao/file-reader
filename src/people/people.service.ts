@@ -1,0 +1,61 @@
+import { Inject, Injectable, Logger } from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
+import { lastValueFrom } from 'rxjs';
+import { People } from './types';
+
+@Injectable()
+export class PeopleService {
+  constructor(@Inject('PEOPLE_SERVICE') private rabbitClient: ClientProxy) {}
+
+  private readonly logger = new Logger(PeopleService.name);
+
+  async processPeopleDataFromCsv(file: Express.Multer.File) {
+    const content = file.buffer.toString();
+
+    const people = this.treatPeopleData(content);
+
+    await this.sendPeopleToProcess(people);
+
+    return { message: `Processing ${people.length} people.` };
+  }
+
+  private treatPeopleData(content: string) {
+    const lines = content.split('\n');
+
+    lines.shift();
+
+    const people: People = lines
+      .map((line) => line.split(','))
+      .filter(([id, name, phone, state]) => state && name && phone && id)
+      .map(([id, name, phone, state]) => ({ id: +id, name, phone, state }));
+
+    this.removeDuplicatePeople(people);
+
+    return people;
+  }
+
+  private removeDuplicatePeople(people: People) {
+    return people.filter(
+      (person, index, self) =>
+        index ===
+        self.findIndex(
+          (t) =>
+            t.name === person.name &&
+            t.phone === person.phone &&
+            t.state === person.state,
+        ),
+    );
+  }
+
+  async sendPeopleToProcess(people: People) {
+    const chunkSize = 1_000;
+
+    for (let i = 0; i < people.length; i += chunkSize) {
+      const chunk = people.slice(i, i + chunkSize);
+
+      this.logger.log(`Sending ${chunk.length} people to be processed`);
+
+      await lastValueFrom(this.rabbitClient.emit('processed-people', chunk));
+    }
+  }
+}
