@@ -16,7 +16,7 @@ export class PeopleService {
 
     await this.sendPeopleToProcess(people);
 
-    return { message: `Processing ${people.length} people.` };
+    return { message: `Processing ${people.length.toLocaleString()} people.` };
   }
 
   private treatPeopleData(content: string) {
@@ -26,7 +26,7 @@ export class PeopleService {
 
     const people: People = lines
       .map((line) => line.split(','))
-      .filter(([id, name, phone, state]) => state && name && phone && id)
+      .filter((line) => line.every((field) => field))
       .map(([id, name, phone, state]) => ({ id: +id, name, phone, state }));
 
     this.removeDuplicatePeople(people);
@@ -37,18 +37,13 @@ export class PeopleService {
   private removeDuplicatePeople(people: People) {
     return people.filter(
       (person, index, self) =>
-        index ===
-        self.findIndex(
-          (t) =>
-            t.name === person.name &&
-            t.phone === person.phone &&
-            t.state === person.state,
-        ),
+        index === self.findIndex((t) => t.id === person.id),
     );
   }
 
   async sendPeopleToProcess(people: People) {
     const chunkSize = 1_000;
+    const secondsBetweenChunks = 1;
 
     for (let i = 0; i < people.length; i += chunkSize) {
       const chunk = people.slice(i, i + chunkSize);
@@ -56,6 +51,10 @@ export class PeopleService {
       this.logger.log(`Sending ${chunk.length} people to be processed`);
 
       await lastValueFrom(this.rabbitClient.emit('processed-people', chunk));
+
+      await new Promise((resolve) =>
+        setTimeout(resolve, secondsBetweenChunks * 1_000),
+      );
     }
   }
 }
