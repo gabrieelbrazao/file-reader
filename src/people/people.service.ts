@@ -1,7 +1,7 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
-import { People } from './types';
+import { TPeople } from './types';
 
 @Injectable()
 export class PeopleService {
@@ -24,7 +24,7 @@ export class PeopleService {
 
     lines.shift();
 
-    const people: People = lines
+    const people: TPeople = lines
       .map((line) => line.split(','))
       .filter((line) => line.every((field) => field))
       .map(([id, name, phone, state]) => ({ id: +id, name, phone, state }));
@@ -34,14 +34,14 @@ export class PeopleService {
     return people;
   }
 
-  private removeDuplicatePeople(people: People) {
+  private removeDuplicatePeople(people: TPeople) {
     return people.filter(
       (person, index, self) =>
         index === self.findIndex((t) => t.id === person.id),
     );
   }
 
-  async sendPeopleToProcess(people: People) {
+  async sendPeopleToProcess(people: TPeople) {
     const chunkSize = 1_000;
     const secondsBetweenChunks = 1;
 
