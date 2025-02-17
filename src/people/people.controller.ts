@@ -1,6 +1,7 @@
 import {
   Controller,
   FileTypeValidator,
+  HttpCode,
   ParseFilePipe,
   Post,
   UploadedFile,
@@ -14,6 +15,7 @@ export class PeopleController {
   constructor(private readonly peopleService: PeopleService) {}
 
   @Post('ProcessFromCsv')
+  @HttpCode(202)
   @UseInterceptors(FileInterceptor('file'))
   ProcessPeopleDataFromCsv(
     @UploadedFile(
