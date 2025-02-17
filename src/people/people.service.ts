@@ -8,6 +8,7 @@ import {
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
 import { TPeople } from './types';
+import { CHUNK_SIZE, SECONDS_BETWEEN_CHUNKS } from './constants';
 
 @Injectable()
 export class PeopleService {
@@ -62,18 +63,15 @@ export class PeopleService {
   }
 
   async sendPeopleToProcess(people: TPeople) {
-    const chunkSize = 1_000;
-    const secondsBetweenChunks = 1;
-
-    for (let i = 0; i < people.length; i += chunkSize) {
-      const chunk = people.slice(i, i + chunkSize);
+    for (let i = 0; i < people.length; i += CHUNK_SIZE) {
+      const chunk = people.slice(i, i + CHUNK_SIZE);
 
       this.logger.log(`Sending ${chunk.length} people to be processed`);
 
       await lastValueFrom(this.rabbitClient.emit('processed-people', chunk));
 
       await new Promise((resolve) =>
-        setTimeout(resolve, secondsBetweenChunks * 1_000),
+        setTimeout(resolve, SECONDS_BETWEEN_CHUNKS * 1_000),
       );
     }
   }
