@@ -38,7 +38,7 @@ export class PeopleService {
 
     lines.shift();
 
-    if (lines.length === 0) {
+    if (lines.length === 0 || (lines.length === 1 && !lines[0])) {
       this.logger.log('No people to process');
       this.logger.debug(content);
 
