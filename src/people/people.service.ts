@@ -1,4 +1,10 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  Logger,
+  NotFoundException,
+  ServiceUnavailableException,
+} from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom } from 'rxjs';
 import { TPeople } from './types';
@@ -14,9 +20,16 @@ export class PeopleService {
 
     const people = this.treatPeopleData(content);
 
-    await this.sendPeopleToProcess(people);
+    try {
+      await this.sendPeopleToProcess(people);
 
-    return { message: `Processing ${people.length.toLocaleString()} people.` };
+      return {
+        message: `Processing ${people.length.toLocaleString()} people.`,
+      };
+    } catch (error) {
+      this.logger.error(error);
+      throw new ServiceUnavailableException('Error processing people data');
+    }
   }
 
   private treatPeopleData(content: string) {
@@ -24,14 +37,21 @@ export class PeopleService {
 
     lines.shift();
 
+    if (lines.length === 0) {
+      this.logger.log('No people to process');
+      this.logger.debug(content);
+
+      throw new NotFoundException('No people to process');
+    }
+
     const people: TPeople = lines
       .map((line) => line.split(','))
       .filter((line) => line.every((field) => field))
       .map(([id, name, phone, state]) => ({ id: +id, name, phone, state }));
 
-    this.removeDuplicatePeople(people);
+    const uniquePeople = this.removeDuplicatePeople(people);
 
-    return people;
+    return uniquePeople;
   }
 
   private removeDuplicatePeople(people: TPeople) {
