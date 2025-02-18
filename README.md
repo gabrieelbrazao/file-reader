@@ -1,3 +1,7 @@
+<p align="center">
+    <a href='https://coveralls.io/github/gabrieelbrazao/file-reader?branch=main'><img src='https://coveralls.io/repos/github/gabrieelbrazao/file-reader/badge.svg?branch=main' alt='Coverage Status' /></a>
+</p>
+
 # Desafio Backend 🎯
 
 O desafio contém dois projetos principais: <a href="https://github.com/gabrieelbrazao/file-store">`file-store`</a> e <a href="https://github.com/gabrieelbrazao/file-reader">`file-reader`</a>. Estes projetos são interdependentes e trabalham juntos para processar e armazenar dados de pessoas.
