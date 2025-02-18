@@ -1,6 +1,22 @@
-<p align="center">
-    <a href='https://coveralls.io/github/gabrieelbrazao/file-reader?branch=main'><img src='https://coveralls.io/repos/github/gabrieelbrazao/file-reader/badge.svg?branch=main' alt='Coverage Status' /></a>
-</p>
+<div style="display: flex; justify-content: center; align-items: center;">
+  <div style="margin: 10px;">
+    <h3 align="center">File Reader</h3>
+    <p>
+      <a href='https://coveralls.io/github/gabrieelbrazao/file-reader?branch=main'>
+        <img src='https://coveralls.io/repos/github/gabrieelbrazao/file-reader/badge.svg?branch=main' alt='Coverage Status' />
+      </a>
+    </p>
+  </div>
+
+  <div style="margin: 10px;">
+    <h3 align="center">File Store</h3>
+    <p>
+      <a href='https://coveralls.io/github/gabrieelbrazao/file-store?branch=main'>
+        <img src='https://coveralls.io/repos/github/gabrieelbrazao/file-store/badge.svg?branch=main' alt='Coverage Status' />
+      </a>
+    </p>
+  </div>
+</div>
 
 # Desafio Backend 🎯
 
@@ -46,8 +62,19 @@ Ambos os projetos podem ser executados usando Docker. Certifique-se de ter o Doc
 ### Instruções 📝
 
 1. Navegue até o diretório de cada projeto (`file-store` e `file-reader`).
-1. Crie um arquivo `.env` para cada projeto.
-1. Execute `docker-compose up` para iniciar os serviços.
-1. O projeto rodará em <a href="http://localhost:3000">`http://localhost:3000`</a>.
+2. Crie um arquivo `.env` para cada projeto.
+   1. file-reader:
+      ```
+      AMQP_URL=amqp://rabbitmq:5672
+      QUEUE_NAME=people_queue
+      ```
+   2. file-store:
+      ```
+      AMQP_URL=amqp://rabbitmq:5672
+      QUEUE_NAME=people_queue
+      MONGO_URL=mongodb://mongo:27017/file-store
+      ```
+3. Execute `docker-compose up` para iniciar os serviços.
+4. O projeto rodará em <a href="http://localhost:3000">`http://localhost:3000`</a>.
 
 ⚠️ Como o projeto file-reader se conecta com containers do projeto file-store (MongoDB e RabbitMQ), é aconselhável executar o comando no projeto file-store primeiro. ⚠️
