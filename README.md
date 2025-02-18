@@ -1,21 +1,17 @@
-<div style="display: flex; justify-content: center; align-items: center;">
-  <div style="margin: 10px;">
-    <h3 align="center">File Reader</h3>
-    <p>
-      <a href='https://coveralls.io/github/gabrieelbrazao/file-reader?branch=main'>
-        <img src='https://coveralls.io/repos/github/gabrieelbrazao/file-reader/badge.svg?branch=main' alt='Coverage Status' />
-      </a>
-    </p>
-  </div>
-
-  <div style="margin: 10px;">
-    <h3 align="center">File Store</h3>
-    <p>
-      <a href='https://coveralls.io/github/gabrieelbrazao/file-store?branch=main'>
-        <img src='https://coveralls.io/repos/github/gabrieelbrazao/file-store/badge.svg?branch=main' alt='Coverage Status' />
-      </a>
-    </p>
-  </div>
+<div align="center">
+  <h3 >File Reader</h3>
+  <p>
+    <a href='https://coveralls.io/github/gabrieelbrazao/file-reader?branch=main'>
+      <img src='https://coveralls.io/repos/github/gabrieelbrazao/file-reader/badge.svg?branch=main' alt='Coverage Status' />
+    </a>
+  </p>
+  
+  <h3>File Store</h3>
+  <p>
+    <a href='https://coveralls.io/github/gabrieelbrazao/file-store?branch=main'>
+      <img src='https://coveralls.io/repos/github/gabrieelbrazao/file-store/badge.svg?branch=main' alt='Coverage Status' />
+    </a>
+  </p>
 </div>
 
 # Desafio Backend 🎯
@@ -77,4 +73,5 @@ Ambos os projetos podem ser executados usando Docker. Certifique-se de ter o Doc
 3. Execute `docker-compose up` para iniciar os serviços.
 4. O projeto rodará em <a href="http://localhost:3000">`http://localhost:3000`</a>.
 
-⚠️ Como o projeto file-reader se conecta com containers do projeto file-store (MongoDB e RabbitMQ), é aconselhável executar o comando no projeto file-store primeiro. ⚠️
+[!IMPORTANT]
+Como o projeto file-reader se conecta com containers do projeto file-store (MongoDB e RabbitMQ), é aconselhável executar o comando no projeto file-store primeiro.
