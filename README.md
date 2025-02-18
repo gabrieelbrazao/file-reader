@@ -1,99 +1,49 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Desafio Backend 🎯
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+O desafio contém dois projetos principais: <a href="https://github.com/gabrieelbrazao/file-store">`file-store`</a> e <a href="https://github.com/gabrieelbrazao/file-reader">`file-reader`</a>. Estes projetos são interdependentes e trabalham juntos para processar e armazenar dados de pessoas.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## file-reader ✍️
 
-## Description
+O `file-reader` é responsável por ler arquivos CSV contendo dados de pessoas e enviar esses dados para o `file-store` processar e armazenar.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+### Configuração local 🛠️
 
-## Project setup
+1. Clone o repositório.
+2. Navegue até o diretório `file-reader`.
+3. Crie um arquivo `.env.development.local` baseado no `.env.example` e preencha as variáveis de ambiente necessárias.
+4. Execute `yarn install` para instalar as dependências.
+5. Execute `yarn start:dev` para iniciar o servidor em modo de desenvolvimento.
+6. O projeto rodará em <a href="http://localhost:3000">`http://localhost:3000`</a>.
 
-```bash
-$ yarn install
-```
+### Endpoints 📍
 
-## Compile and run the project
+- **POST /people/ProcessFromCsv**: Recebe um arquivo CSV contendo dados de pessoas e envia esses dados para o `file-store` processar.
 
-```bash
-# development
-$ yarn run start
+## file-store 📦
 
-# watch mode
-$ yarn run start:dev
+O `file-store` é responsável por armazenar os dados de pessoas em um banco de dados MongoDB. Ele também agrupa os dados por estado e mantém uma contagem de pessoas por estado.
 
-# production mode
-$ yarn run start:prod
-```
+### Configuração local 🛠️
 
-## Run tests
+1. Clone o repositório.
+2. Navegue até o diretório `file-store`.
+3. Crie um arquivo `.env.development.local` baseado no `.env.example` e preencha as variáveis de ambiente necessárias.
+4. Execute `yarn install` para instalar as dependências.
+5. Execute `yarn start:dev` para iniciar o servidor em modo de desenvolvimento.
 
-```bash
-# unit tests
-$ yarn run test
+### Endpoints 📍
 
-# e2e tests
-$ yarn run test:e2e
+- **POST /people**: Recebe dados de pessoas e os armazena no banco de dados.
 
-# test coverage
-$ yarn run test:cov
-```
+## Docker 🐳
 
-## Deployment
+Ambos os projetos podem ser executados usando Docker. Certifique-se de ter o Docker e o Docker Compose instalados.
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+### Instruções 📝
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+1. Navegue até o diretório de cada projeto (`file-store` e `file-reader`).
+1. Crie um arquivo `.env` para cada projeto.
+1. Execute `docker-compose up` para iniciar os serviços.
+1. O projeto rodará em <a href="http://localhost:3000">`http://localhost:3000`</a>.
 
-```bash
-$ yarn install -g mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+⚠️ Como o projeto file-reader se conecta com containers do projeto file-store (MongoDB e RabbitMQ), é aconselhável executar o comando no projeto file-store primeiro. ⚠️
