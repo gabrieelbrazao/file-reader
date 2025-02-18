@@ -5,7 +5,7 @@
       <img src='https://coveralls.io/repos/github/gabrieelbrazao/file-reader/badge.svg?branch=main' alt='Coverage Status' />
     </a>
   </p>
-  
+
   <h3>File Store</h3>
   <p>
     <a href='https://coveralls.io/github/gabrieelbrazao/file-store?branch=main'>
@@ -73,5 +73,5 @@ Ambos os projetos podem ser executados usando Docker. Certifique-se de ter o Doc
 3. Execute `docker-compose up` para iniciar os serviços.
 4. O projeto rodará em <a href="http://localhost:3000">`http://localhost:3000`</a>.
 
-[!IMPORTANT]
-Como o projeto file-reader se conecta com containers do projeto file-store (MongoDB e RabbitMQ), é aconselhável executar o comando no projeto file-store primeiro.
+> [!IMPORTANT]
+> Como o projeto file-reader se conecta com containers do projeto file-store (MongoDB e RabbitMQ), é aconselhável executar o comando no projeto file-store primeiro.
