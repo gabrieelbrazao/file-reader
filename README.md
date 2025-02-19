@@ -5,7 +5,7 @@
       <img src='https://coveralls.io/repos/github/gabrieelbrazao/file-reader/badge.svg?branch=main' alt='Coverage Status' />
     </a>
   </p>
-
+  
   <h3>File Store</h3>
   <p>
     <a href='https://coveralls.io/github/gabrieelbrazao/file-store?branch=main'>
@@ -33,7 +33,7 @@ O `file-reader` é responsável por ler arquivos CSV contendo dados de pessoas e
 
 ### Endpoints 📍
 
-- **POST /people/ProcessFromCsv**: Recebe um arquivo CSV contendo dados de pessoas e envia esses dados para o `file-store` processar.
+- **POST /people/ProcessFromCsv**: Recebe um arquivo CSV contendo dados de pessoas e envia esses dados para o `file-store` processar, a key do arquivo no form-data deve ser `file`.
 
 ## file-store 📦
 
@@ -46,10 +46,6 @@ O `file-store` é responsável por armazenar os dados de pessoas em um banco de 
 3. Crie um arquivo `.env.development.local` baseado no `.env.example` e preencha as variáveis de ambiente necessárias.
 4. Execute `yarn install` para instalar as dependências.
 5. Execute `yarn start:dev` para iniciar o servidor em modo de desenvolvimento.
-
-### Endpoints 📍
-
-- **POST /people**: Recebe dados de pessoas e os armazena no banco de dados.
 
 ## Docker 🐳
 
